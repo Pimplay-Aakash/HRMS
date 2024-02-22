@@ -6,9 +6,31 @@ import Logout from "@/../public/assets/onboarding/Logout.svg";
 import Company from "@/../public/assets/onboarding/company.svg";
 import Profile from "@/../public/assets/onboarding/profile.svg";
 import Link from "next/link";
+import {useDispatch,useSelector} from "react-redux"
+import { createUser } from "@/redux/slices/personalDetails";
+import { createCompany } from "@/redux/slices/personalDetails";
 
 import { Button, Progress } from "antd";
 const PreviewEmp = ({ setInStep, inStep, step, setStep }) => {
+
+  const personalData = useSelector((state) => state.personalDetails.personalData);
+  const companyData = useSelector((state) => state.personalDetails.companyData);
+
+  const dispatch = useDispatch()
+  const handleSubmit = async () => {
+    // e.preventDefault();
+    // console.log("company...", companyData);
+
+       const combinedData = {"orgId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",...companyData, };
+  
+       dispatch(createUser(personalData))
+       dispatch(createCompany(combinedData))
+      //  console.log(combinedData);
+  
+  };
+
+  // console.log(personalData.name);
+
   return (
     <div className="flex justify-center items-center gap-16 w-[100%] h-[100vh] p-10 ">
       <div className="md:w-[70vw] h-[88vh] rounded-2xl bg-[#E6F7FF] flex justify-center items-center">
@@ -65,31 +87,32 @@ const PreviewEmp = ({ setInStep, inStep, step, setStep }) => {
             <div className="flex  justify-start gap-40 border-b-2 -mt-2  border-gray-200 w-full">
               <span className="  flex flex-col gap-1 ">
                 <span className="text-gray-400 ">First Name</span>
-                <span>John</span>
+                <span>{personalData.firstname}</span>
               </span>
               <span className="flex flex-col gap-1 pl-4">
                 <span className="text-gray-400 ">Last Name</span>
-                <span>Wane</span>
+                <span>{personalData.lastname}</span>
               </span>
             </div>
             <div className="flex flex-col gap-1  border-b-2 border-gray-200 w-full">
               <span className="text-gray-400 ">Gender</span>
-              <span>Male</span>
+              <span>{personalData.gender}</span>
             </div>
             <div className="flex flex-col gap-1  border-b-2 border-gray-200 w-full">
               <span className="text-gray-400 ">Phone Number</span>
-              <span>91+ 1234567891</span>
+              <span>91+{personalData.number}</span>
             </div>
             <div className="flex flex-col gap-1  border-b-2 border-gray-200 w-full">
               <span className="text-gray-400 "> Date of Birth</span>
-              <span>01/01/2000</span>
+              <span>{personalData.date}</span>
             </div>
           </div>
         </div>
         <button
           className="w-[70%] lg:mt py-1 h-8 bg-[#1890FF] hover:bg-blue-600 transition-all text-white items-end"
           onClick={() => {
-            setStep(step + 1);
+            handleSubmit()
+            ,setStep(step + 1)
           }}
         >
           Complete

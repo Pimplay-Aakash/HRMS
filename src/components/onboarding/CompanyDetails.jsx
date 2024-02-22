@@ -5,6 +5,12 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import ImageUp from "@/../public/assets/onboarding/OnbordingImg.svg";
 import Logout from "@/../public/assets/onboarding/Logout.svg";
 import UploadImg from "./UploadImg";
+import { setCompanyData } from '@/redux/slices/personalDetails';
+// import { createUser } from "@/redux/slices/personalDetails";
+import { useState  } from "react"
+import {useDispatch,useSelector} from "react-redux"
+import {personalDetails} from "@/redux/slices/personalDetails";
+
 
 import {
   Flex,
@@ -19,16 +25,40 @@ import {
 } from "antd";
 import Link from "next/link";
 const CompanyDetails = ({ step, setStep }) => {
+
+// const personalData = useSelector((state) => state.personalDetails.personalData);
+// console.log(personalData);
+  const [company , setCompany] = useState({})
+  const dispatch = useDispatch()
+
+  const getCompanyData = (e) =>{
+    setCompany({...company, [e.target.name]: e.target.value})
+    // console.log(company);
+  }
+  
+ const handleCompanySubmit = async () => {
+  // e.preventDefault();
+  // console.log("company...", company);
+  
+     dispatch(setCompanyData(company));
+
+    //  const combinedData = {...company, ...personalData };
+
+    //  dispatch(createUser(combinedData))
+
+};
+
+
   return (
     <div className="flex justify-center items-center gap-16 w-[100%] h-[100vh] p-10">
       <div className="w-[70vw] h-[88vh] rounded-2xl bg-[#E6F7FF] flex justify-center items-center">
-        <Image width={100} height={100} src={ImageUp} className="w-[60%]  " />
+        <Image width={100} height={100} src={ImageUp} className="w-[60%]"  />
       </div>
 
       <div className="w-[50vw] h-[96vh] -mt-7 flex flex-col relative">
         <Link href="/login">
           <div className="flex  items-center p-1 gap-1 border border-blue-500 hover:bg-blue-100 transition-all btn btn-primary w-[100px] absolute right-2 top-8 cursor-pointer">
-            <Image width={15} height={15} src={Logout} />
+            <Image width={15} height={15} src={Logout}  />
             <button className="">Logout</button>
           </div>
         </Link>
@@ -54,10 +84,14 @@ const CompanyDetails = ({ step, setStep }) => {
             your profile on Workflow App
           </p>
           <input
+            name="companyname"
+            onChange={getCompanyData}
             placeholder="Legal Company Name"
             className="p-2 mb-2 border border-gray-300 outline-blue-500 w-[70%] "
           />
           <input
+            name="companyemail"
+            onChange={getCompanyData}
             placeholder="Company Email Address"
             className="p-2 mb-2 border border-gray-300 outline-blue-500 w-[70%] "
           />
@@ -69,6 +103,8 @@ const CompanyDetails = ({ step, setStep }) => {
                 <option>+86</option>
               </select>
               <input
+                name="companynumber"
+                onChange={getCompanyData}
                 type="number"
                 placeholder="Phone Number"
                 className="w-full h-9 p-2 border-gray-300 outline-blue-500"
@@ -76,10 +112,14 @@ const CompanyDetails = ({ step, setStep }) => {
             </Form>
           </div>
           <input
+            name="addressone"
+            onChange={getCompanyData}
             placeholder="Address Line 1"
             className="p-1 mb-2 border border-gray-300 outline-blue-500 w-[70%] "
           />
           <input
+            name="addresstwo"
+            onChange={getCompanyData}
             placeholder="Address Line 2"
             className="p-1 mb-2 border border-gray-300 outline-blue-500 w-[70%] "
           />
@@ -87,6 +127,8 @@ const CompanyDetails = ({ step, setStep }) => {
           <div>
             <div className="w-full mb-1">
               <select
+                name="country"
+                onChange={getCompanyData}
                 placeholder="Country"
                 className="w-[33.5%] mr-4 p-1 border border-gray-300 outline-blue-500"
               >
@@ -95,6 +137,8 @@ const CompanyDetails = ({ step, setStep }) => {
                 <option value="Usa">Usa</option>
               </select>
               <select
+                name="state"
+                onChange={getCompanyData}
                 placeholder="State"
                 className="w-[33.5%] p-1 border border-gray-300 outline-blue-500"
               >
@@ -105,6 +149,8 @@ const CompanyDetails = ({ step, setStep }) => {
             </div>
             <div>
               <select
+                name="city"
+                onChange={getCompanyData}
                 placeholder="City"
                 className="w-[33.5%] mr-4 p-1 border border-gray-300 outline-blue-500"
               >
@@ -113,6 +159,8 @@ const CompanyDetails = ({ step, setStep }) => {
                 <option value="Mahaboob Nager">Mahaboob Nager</option>
               </select>
               <input
+                name="zipcode"
+                onChange={getCompanyData}
                 type="number"
                 placeholder="Zip Code"
                 className="w-[33.5%] p-1 border border-gray-300 outline-blue-500"
@@ -132,7 +180,7 @@ const CompanyDetails = ({ step, setStep }) => {
             </div>
           </div>
 
-          <button className="w-[70%] h-8 bg-[#1890FF] text-white hover:bg-blue-600" onClick={()=>{setStep(step+1)}}>
+          <button className="w-[70%] h-8 bg-[#1890FF] text-white hover:bg-blue-600" onClick={()=>{console.log("world"),handleCompanySubmit(),setStep(step+1)}}>
             Next
           </button>
         </div>

@@ -6,8 +6,26 @@ import Logout from "@/../public/assets/onboarding/Logout.svg";
 import Company from "@/../public/assets/onboarding/company.svg";
 import Profile from "@/../public/assets/onboarding/profile.svg";
 import Link from "next/link";
+import {useDispatch,useSelector} from "react-redux"
+import { createUser } from "@/redux/slices/personalDetails";
+import { createCompany } from "@/redux/slices/personalDetails";
 
 const PreviewCompany = ({ setInStep, setStep, step, inStep }) => {
+
+  const personalData = useSelector((state) => state.personalDetails.personalData);
+  const companyData = useSelector((state) => state.personalDetails.companyData);
+
+  const dispatch = useDispatch()
+  const handleSubmit = async () => {
+    // e.preventDefault();
+    // console.log("company...", companyData);
+    const combinedData = {"orgId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",...companyData, };  
+      dispatch(createCompany(personalData))
+      dispatch(createUser(combinedData))
+      //  console.log(combinedData);
+  
+  };
+
   return (
     <div className="flex justify-center items-center gap-16 w-[100%] h-[100vh] p-10 ">
       <div className="md:w-[70vw] h-[88vh] rounded-2xl  p-4 bg-[#E6F7FF] flex justify-center items-center">
@@ -74,45 +92,45 @@ const PreviewCompany = ({ setInStep, setStep, step, inStep }) => {
                 <span className="text-gray-400 text-xs">
                   Legal Company Name
                 </span>
-                <span className="text-xs">Synectiks pvt Ltd</span>
+                <span className="text-xs">{companyData.companyname}</span>
               </span>
               <span className="flex flex-col  pl-4">
                 <span className="text-gray-400 text-xs">
                   Company Email Address
                 </span>
-                <span className="text-xs">hr@stnectiks.com</span>
+                <span className="text-xs">{companyData.companyemail}</span>
               </span>
             </div>
             <div className="flex flex-col   border-b border-gray-200 w-full">
               <span className="text-gray-400 text-xs">Phone Number</span>
-              <span className="text-xs">91+ 9505934716</span>
+              <span className="text-xs">91+{companyData.companynumber}</span>
             </div>
             <div className="flex flex-col   border-b border-gray-200 w-full">
               <span className="text-gray-400 text-xs">Address Line 1</span>
-              <span className="text-xs">Synectiks, Level 6, N Heights</span>
+              <span className="text-xs">{companyData.addressone}</span>
             </div>
             <div className="flex flex-col   border-b border-gray-200 w-full">
               <span className="text-gray-400 text-xs"> Address Line 2</span>
-              <span className="text-xs">California</span>
+              <span className="text-xs">{companyData.addresstwo}</span>
             </div>
             <div className="flex  justify-start gap-48 border-b  border-gray-200 w-full">
               <span className="  flex flex-col  ">
                 <span className="text-gray-400 text-xs">Country</span>
-                <span className="text-xs">INDIA</span>
+                <span className="text-xs">{companyData.country}</span>
               </span>
               <span className="flex flex-col  pl-2">
                 <span className="text-gray-400 text-xs">State</span>
-                <span className="text-xs">TELANGANA</span>
+                <span className="text-xs">{companyData.state}</span>
               </span>
             </div>
             <div className="flex  justify-start gap-40  border-b border-gray-200 w-full">
               <span className="  flex flex-col  ">
                 <span className="text-gray-400 text-xs">City</span>
-                <span className="text-xs">HYDERABAD</span>
+                <span className="text-xs">{companyData.city}</span>
               </span>
               <span className="flex flex-col  pl-4">
                 <span className="text-gray-400 text-xs">Zipcode</span>
-                <span className="text-xs">500053</span>
+                <span className="text-xs">{companyData.zipcode}</span>
               </span>
             </div>
           </div>
@@ -120,6 +138,7 @@ const PreviewCompany = ({ setInStep, setStep, step, inStep }) => {
         <button
           className="w-[70%] lg:mt-6 h-8 bg-[#1890FF] hover:bg-blue-600 transition-all text-white items-end"
           onClick={() => {
+            handleSubmit(),
             setStep(step + 1);
           }}
         >

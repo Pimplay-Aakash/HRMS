@@ -19,29 +19,37 @@ import {
 
 import { UserOutlined } from "@ant-design/icons";
 import { useState  } from "react"
-import {useDispatch} from "react-redux"
-import { createUser } from "@/redux/slices/personalDetails";
+import {useDispatch,useSelector} from "react-redux"
+// import { createUser } from "@/redux/slices/personalDetails";
+import { setPersonalData } from '@/redux/slices/personalDetails';
 
 
 
 const Onboarding = ({ step, setStep }) => {
 
+  // const personalData = useSelector((state) => state.personalDetails.personalData);
+
+
   const { Option } = Select;
   const router = useRouter();
   
-  const [users , setusers] = useState({})
+  const [personal , setPersonal] = useState({})
   const dispatch = useDispatch()
 
   const getUserData = (e) =>{
-    setusers({...users, [e.target.name]: e.target.value})
-    console.log(users);
+    setPersonal({...personal, [e.target.name]: e.target.value})
+    // console.log(personal);
   }
+
+  const handleGenderChange = (selectedValue) => {
+    setPersonal({ ...personal, gender: selectedValue });
+  };
 
  const handleSubmit = async () => {
   // e.preventDefault();
-  console.log("users...", users);
+  console.log("personal...", personal);
   
-     dispatch(createUser(users));
+     dispatch(setPersonalData(personal));
 
 };
 
@@ -80,13 +88,14 @@ const Onboarding = ({ step, setStep }) => {
           </p>
 
           <input
-            name="name"
+            name="firstname"
             placeholder="First name"
             className="p-1 mb-3 border border-gray-300 outline-blue-500 w-[70%] "
             onChange={getUserData}
+            // value={personalData.firstname}
           />
           <input
-            name="email"
+            name="lastname"
             placeholder="Last name"
             className="p-1 mb-3 border border-gray-300 outline-blue-500 w-[70%]"
             onChange={getUserData}
@@ -95,6 +104,8 @@ const Onboarding = ({ step, setStep }) => {
           <div className="mb-3">
             <Flex gap="small" align="flex-start" vertical>
               <Segmented
+                name="gender"
+                
                 options={[
                   {
                     label: (
@@ -134,6 +145,7 @@ const Onboarding = ({ step, setStep }) => {
                     value: "Other",
                   },
                 ]}
+                onChange={handleGenderChange}
               />
             </Flex>
           </div>
