@@ -27,6 +27,8 @@ import Link from "next/link";
 const CompanyDetails = ({ step, setStep }) => {
 
 // const personalData = useSelector((state) => state.personalDetails.personalData);
+const companyData = useSelector((state) => state.personalDetails.companyData);
+
 // console.log(personalData);
   const [company , setCompany] = useState({})
   const dispatch = useDispatch()
@@ -38,7 +40,7 @@ const CompanyDetails = ({ step, setStep }) => {
   
  const handleCompanySubmit = async () => {
   // e.preventDefault();
-  // console.log("company...", company);
+  console.log("company...", company);
   
      dispatch(setCompanyData(company));
 
@@ -84,16 +86,18 @@ const CompanyDetails = ({ step, setStep }) => {
             your profile on Workflow App
           </p>
           <input
-            name="companyname"
+            name="name"
             onChange={getCompanyData}
             placeholder="Legal Company Name"
             className="p-2 mb-2 border border-gray-300 outline-blue-500 w-[70%] "
+            value={companyData.name !== undefined ? companyData.name : "" || companyData.name }
           />
           <input
-            name="companyemail"
+            name="email"
             onChange={getCompanyData}
             placeholder="Company Email Address"
             className="p-2 mb-2 border border-gray-300 outline-blue-500 w-[70%] "
+            value={companyData.email !== undefined ? companyData.email : "" || companyData.email }
           />
 
           <div className="mb-2">
@@ -103,22 +107,24 @@ const CompanyDetails = ({ step, setStep }) => {
                 <option>+86</option>
               </select>
               <input
-                name="companynumber"
+                name="number"
                 onChange={getCompanyData}
                 type="number"
                 placeholder="Phone Number"
                 className="w-full h-9 p-2 border-gray-300 outline-blue-500"
+                value={companyData.number !== undefined ? companyData.number : "" || companyData.number }
               />
             </Form>
           </div>
           <input
-            name="addressone"
+            name="address_line_1"
             onChange={getCompanyData}
             placeholder="Address Line 1"
             className="p-1 mb-2 border border-gray-300 outline-blue-500 w-[70%] "
+            value={companyData.address_line_1 !== undefined ? companyData.address_line_1 : "" || companyData.address_line_1 }
           />
           <input
-            name="addresstwo"
+            name="address_line_2"
             onChange={getCompanyData}
             placeholder="Address Line 2"
             className="p-1 mb-2 border border-gray-300 outline-blue-500 w-[70%] "
@@ -131,8 +137,10 @@ const CompanyDetails = ({ step, setStep }) => {
                 onChange={getCompanyData}
                 placeholder="Country"
                 className="w-[33.5%] mr-4 p-1 border border-gray-300 outline-blue-500"
+                value={companyData.country !== undefined ? companyData.country : "" || companyData.country }
               >
-                <option value="India">Indai</option>
+                <option value="">select Country</option>
+                <option value="India">India</option>
                 <option value="Austrila">Austrila</option>
                 <option value="Usa">Usa</option>
               </select>
@@ -141,7 +149,9 @@ const CompanyDetails = ({ step, setStep }) => {
                 onChange={getCompanyData}
                 placeholder="State"
                 className="w-[33.5%] p-1 border border-gray-300 outline-blue-500"
+                value={companyData.state !== undefined ? companyData.state : "" || companyData.state }
               >
+                <option value="">select State</option>
                 <option value="Telangana">Telangana</option>
                 <option value="Kerala">Kerala</option>
                 <option value="Goa">Goa</option>
@@ -153,7 +163,9 @@ const CompanyDetails = ({ step, setStep }) => {
                 onChange={getCompanyData}
                 placeholder="City"
                 className="w-[33.5%] mr-4 p-1 border border-gray-300 outline-blue-500"
+                value={companyData.city !== undefined ? companyData.city : "" || companyData.city }
               >
+                <option value="">select city</option>
                 <option value="Hyderabad">Hyderabad</option>
                 <option value="Varangel">Varangel</option>
                 <option value="Mahaboob Nager">Mahaboob Nager</option>
@@ -164,6 +176,7 @@ const CompanyDetails = ({ step, setStep }) => {
                 type="number"
                 placeholder="Zip Code"
                 className="w-[33.5%] p-1 border border-gray-300 outline-blue-500"
+                value={companyData.zipcode !== undefined ? companyData.zipcode : "" || companyData.zipcode }
               />
             </div>
           </div>

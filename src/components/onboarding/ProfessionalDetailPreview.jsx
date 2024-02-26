@@ -16,14 +16,29 @@ const PreviewCompany = ({ setInStep, setStep, step, inStep }) => {
   const companyData = useSelector((state) => state.personalDetails.companyData);
 
   const dispatch = useDispatch()
-  const handleSubmit = async () => {
-    // e.preventDefault();
-    // console.log("company...", companyData);
-    const combinedData = {"orgId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",...companyData, };  
-      dispatch(createCompany(personalData))
-      dispatch(createUser(combinedData))
-      //  console.log(combinedData);
+
+  // const handleSubmit = async () => {
+  //   // e.preventDefault();
+  //   // console.log("company...", companyData);
+  //   // const combinedData = {...companyData, };  
+  //     dispatch(createCompany(companyData))
+  //     dispatch(createUser(personalData))
+  //      console.log("dispatch",personalData);
   
+  // };
+
+  
+  const handleSubmit = async () => {
+    const orgId = "482d8374-fca3-43ff-a638-02c8a425c492"; // Replace with your actual orgId value
+  
+    // Combine orgId with companyData
+    const combinedData = { orgId, ...companyData };
+  
+    // Dispatch actions with the modified data
+    dispatch(createUser(personalData));
+    dispatch(createCompany(combinedData));
+  
+    // console.log(combinedData);
   };
 
   return (
@@ -92,26 +107,26 @@ const PreviewCompany = ({ setInStep, setStep, step, inStep }) => {
                 <span className="text-gray-400 text-xs">
                   Legal Company Name
                 </span>
-                <span className="text-xs">{companyData.companyname}</span>
+                <span className="text-xs">{companyData.name}</span>
               </span>
               <span className="flex flex-col  pl-4">
                 <span className="text-gray-400 text-xs">
                   Company Email Address
                 </span>
-                <span className="text-xs">{companyData.companyemail}</span>
+                <span className="text-xs">{companyData.email}</span>
               </span>
             </div>
             <div className="flex flex-col   border-b border-gray-200 w-full">
               <span className="text-gray-400 text-xs">Phone Number</span>
-              <span className="text-xs">91+{companyData.companynumber}</span>
+              <span className="text-xs">91+{companyData.number}</span>
             </div>
             <div className="flex flex-col   border-b border-gray-200 w-full">
               <span className="text-gray-400 text-xs">Address Line 1</span>
-              <span className="text-xs">{companyData.addressone}</span>
+              <span className="text-xs">{companyData.address_line_1}</span>
             </div>
             <div className="flex flex-col   border-b border-gray-200 w-full">
               <span className="text-gray-400 text-xs"> Address Line 2</span>
-              <span className="text-xs">{companyData.addresstwo}</span>
+              <span className="text-xs">{companyData.address_line_2}</span>
             </div>
             <div className="flex  justify-start gap-48 border-b  border-gray-200 w-full">
               <span className="  flex flex-col  ">

@@ -17,16 +17,30 @@ const PreviewEmp = ({ setInStep, inStep, step, setStep }) => {
   const companyData = useSelector((state) => state.personalDetails.companyData);
 
   const dispatch = useDispatch()
-  const handleSubmit = async () => {
-    // e.preventDefault();
-    // console.log("company...", companyData);
 
-       const combinedData = {"orgId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",...companyData, };
+  // const handleSubmit = async () => {
+  //   // e.preventDefault();
+  //   // console.log("company...", companyData);
+
+  //      const combinedData = {"482d8374-fca3-43ff-a638-02c8a425c492",...companyData, };
   
-       dispatch(createUser(personalData))
-       dispatch(createCompany(combinedData))
-      //  console.log(combinedData);
+  //      dispatch(createUser(personalData))
+  //      dispatch(createCompany(combinedData))
+  //     //  console.log(combinedData);
   
+  // };
+
+  const handleSubmit = async () => {
+    const orgId = "482d8374-fca3-43ff-a638-02c8a425c492"; // Replace with your actual orgId value
+  
+    // Combine orgId with companyData
+    const combinedData = { orgId, ...companyData };
+  
+    // Dispatch actions with the modified data
+    dispatch(createUser(personalData));
+    dispatch(createCompany(combinedData));
+  
+    // console.log(combinedData);
   };
 
   // console.log(personalData.name);
@@ -87,11 +101,11 @@ const PreviewEmp = ({ setInStep, inStep, step, setStep }) => {
             <div className="flex  justify-start gap-40 border-b-2 -mt-2  border-gray-200 w-full">
               <span className="  flex flex-col gap-1 ">
                 <span className="text-gray-400 ">First Name</span>
-                <span>{personalData.firstname}</span>
+                <span>{personalData.first_name}</span>
               </span>
               <span className="flex flex-col gap-1 pl-4">
                 <span className="text-gray-400 ">Last Name</span>
-                <span>{personalData.lastname}</span>
+                <span>{personalData.last_name}</span>
               </span>
             </div>
             <div className="flex flex-col gap-1  border-b-2 border-gray-200 w-full">
@@ -104,7 +118,7 @@ const PreviewEmp = ({ setInStep, inStep, step, setStep }) => {
             </div>
             <div className="flex flex-col gap-1  border-b-2 border-gray-200 w-full">
               <span className="text-gray-400 "> Date of Birth</span>
-              <span>{personalData.date}</span>
+              <span>{personalData.dob}</span>
             </div>
           </div>
         </div>

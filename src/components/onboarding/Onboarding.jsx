@@ -27,7 +27,7 @@ import { setPersonalData } from '@/redux/slices/personalDetails';
 
 const Onboarding = ({ step, setStep }) => {
 
-  // const personalData = useSelector((state) => state.personalDetails.personalData);
+  const personalData = useSelector((state) => state.personalDetails.personalData);
 
 
   const { Option } = Select;
@@ -88,17 +88,18 @@ const Onboarding = ({ step, setStep }) => {
           </p>
 
           <input
-            name="firstname"
+            name="first_name"
             placeholder="First name"
             className="p-1 mb-3 border border-gray-300 outline-blue-500 w-[70%] "
             onChange={getUserData}
-            // value={personalData.firstname}
-          />
+            value={personal.first_name !== undefined ? personal.first_name : "" || personalData.first_name }
+          /> 
           <input
-            name="lastname"
+            name="last_name"
             placeholder="Last name"
             className="p-1 mb-3 border border-gray-300 outline-blue-500 w-[70%]"
             onChange={getUserData}
+            value={personal.last_name !== undefined ? personal.last_name : "" || personalData.last_name }
           />
 
           <div className="mb-3">
@@ -115,7 +116,7 @@ const Onboarding = ({ step, setStep }) => {
                           // color:"blue"
                         }}
                       >
-                        <div>Mate</div>
+                        <div>Male</div>
                       </div>
                     ),
                     value: "Male",
@@ -146,16 +147,20 @@ const Onboarding = ({ step, setStep }) => {
                   },
                 ]}
                 onChange={handleGenderChange}
+                // value={ personal.gender ?? personalData.gender ?? ""}
+                value={personal.gender || personalData.gender || "male"}
+
               />
             </Flex>
           </div>
 
           <input
-            name="date"
+            name="dob"
             type="date"
             placeholder="Date of birth"
             className="p-1 mb-2 border border-gray-300 outline-blue-500 w-[70%]"
             onChange={getUserData}
+            value={personal.dob !== undefined ? personal.dob : "" || personalData.dob }
           />
 
           <div>
@@ -169,6 +174,7 @@ const Onboarding = ({ step, setStep }) => {
                 type="number"
                 className="w-full h-9 p-2 border-gray-300 outline-blue-500"
                 onChange={getUserData}
+                value={personal.number !== undefined ? personal.number : "" || personalData.number }
               />
             </Form>
           </div>
@@ -176,7 +182,7 @@ const Onboarding = ({ step, setStep }) => {
           {/* this is from the uploadin the image  */}
           <div className="flex items-center gap-5 h-20 mt-4">
             <div className="">
-              {/* <UploadImg /> */}
+              <UploadImg />
             </div>
             <div>
               <h2 className="border border-gray-300 p-1 pl-3">

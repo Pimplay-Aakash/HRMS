@@ -7,10 +7,14 @@ import Profile from "@/../../public/assets/onboarding/profile.svg";
 // import { PiPencilSimpleLineFill } from "react-icons/pi";
 import { AiFillEdit } from "react-icons/ai";
 import Editpersonaldetails from "./Editpersonaldetails";
+import {useSelector} from "react-redux"
 
 const PersonalDetails = () => {
   // const router = useRouter();
+  const personalData = useSelector((state) => state.personalDetails.personalData);
   const [edit, setEdit] = useState(false);
+
+  console.log(personalData);
 
   return (
     <>

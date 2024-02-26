@@ -10,6 +10,34 @@ import { Checkbox, DatePicker, Form, Input, Radio, Select } from "antd";
 
 
 
+// const { TextArea } = Input;
+const normFile = (e) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e?.fileList;
+};
+
+// const handleFormSubmit = () => {
+
+//   localStorage.setItem("formData", JSON.stringify(formData));
+// };
+
+// const FormDisabledDemo1 = () => {
+//   const [formData, setFormData] = useState({
+//     providedBy: "",
+//     deviceType: "",
+//     manufacturer: "",
+//     serialNumber: "",
+//     notes: "",
+//     supplyDate: null,
+//   });
+// };
+
+
+const Equipments = ({ tab, setTab }) => {
+
+  
 const { TextArea } = Input;
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -17,23 +45,48 @@ const normFile = (e) => {
   }
   return e?.fileList;
 };
+
 const handleFormSubmit = () => {
 
   localStorage.setItem("formData", JSON.stringify(formData));
 };
-const FormDisabledDemo1 = () => {
-  const [formData, setFormData] = useState({
-    providedBy: "",
-    deviceType: "",
-    manufacturer: "",
-    serialNumber: "",
-    notes: "",
-    supplyDate: null,
-  });
+
+// const FormDisabledDemo1 = () => {
+//   const [formData, setFormData] = useState({
+//     providedBy: "",
+//     deviceType: "",
+//     manufacturer: "",
+//     serialNumber: "",
+//     notes: "",
+//     supplyDate: null,
+//   });
+// };
+
+const [data,setData] = useState(
+  {
+    "owner": "",
+    "device_type_id": "",
+    "manufacturer": "",
+    "serial_number": "",
+    "note": "",
+    "supply_date": "",
+    "emp_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  }
+)
+
+const handleChange = (field, value) => {
+  setData(prevData => ({
+    ...prevData,
+    [field]: value,
+  }));
 };
 
 
-const Equipments = ({ tab, setTab }) => {
+  console.log(data);
+
+    // console.log("FormDisabledDemo1", "FormDisabledDemo1");
+
+
   const router = useRouter();
 
   const [componentDisabled, setComponentDisabled] = useState(true);
@@ -86,19 +139,19 @@ const Equipments = ({ tab, setTab }) => {
       >
         <div>
           {/* <Form /> */}
-          <Checkbox
-            checked={componentDisabled}
-            onChange={(e) => setComponentDisabled(e.target.checked)}
-          ></Checkbox>
+          {/* <Checkbox
+            // checked={componentDisabled}
+            // onChange={(e) => setComponentDisabled(e.target.checked)}
+          ></Checkbox> */}
           <Form
             labelCol={{
-              span: 4,
+              span: 4,  
             }}
             wrapperCol={{
               span: 14,
             }}
             layout="horizontal"
-            disabled={componentDisabled}
+            // disabled={componentDisabled}
             style={{
               maxWidth: 1000,
             }}
@@ -107,9 +160,10 @@ const Equipments = ({ tab, setTab }) => {
             <Form.Item className="">
               Device Provided By:
               <Radio.Group
-                onChange={(e) =>
-                  setFormData({ ...formData, providedBy: e.target.value })
-                }
+              
+                onChange={(e) => {
+                  // setFormData({ ...formData, providedBy: e.target.value })
+                }}
               >
                 <Radio value="org" className="ml-4 ">
                   Own by organization{" "}
@@ -118,7 +172,9 @@ const Equipments = ({ tab, setTab }) => {
               </Radio.Group>
             </Form.Item>
             <Form.Item label="Device Type">
-              <Select className="ml-10" placeholder="Laptop">
+              <Select className="ml-10" placeholder="Laptop" onChange={(e) => {handleData
+                  // setFormData({ ...formData, providedBy: e.target.value })
+                }}>
                 <Select.Option value="menu1">1st menu item</Select.Option>
                 <Select.Option value="menu2">2nd menu item</Select.Option>
                 <Select.Option value="menu2">3rd menu item</Select.Option>
@@ -126,20 +182,29 @@ const Equipments = ({ tab, setTab }) => {
             </Form.Item>
 
             <Form.Item label="Manufacturer Name">
-              <Input placeholder="Hp Laptop" className="rounded-none ml-10" />
+              <Input placeholder="Hp Laptop" className="rounded-none ml-10" onChange={(e) => {handleData
+                  // setFormData({ ...formData, providedBy: e.target.value })
+                }} />
             </Form.Item>
 
             <Form.Item label="Serial number">
-              <Input placeholder="First Name" className="rounded-none ml-10" />
+              <Input placeholder="First Name" className="rounded-none ml-10" onChange={(e) => {handleData
+                  // setFormData({ ...formData, providedBy: e.target.value })
+                }}/>
             </Form.Item>
 
             <Form.Item label="Notes">
-              <TextArea rows={4} className="rounded-none ml-10" />
+              <TextArea rows={4} className="rounded-none ml-10" onChange={(e) => {handleData
+                  // setFormData({ ...formData, providedBy: e.target.value })
+                }}/>
             </Form.Item>
             <Form.Item label="Supply Date">
               <DatePicker
                 placeholder="Select date"
                 className="rounded-none w-full ml-10"
+                onChange={(e) => {handleData
+                  // setFormData({ ...formData, providedBy: e.target.value })
+                }}
               />
             </Form.Item>
             <div className="ml-80">

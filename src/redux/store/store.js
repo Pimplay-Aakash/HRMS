@@ -8,5 +8,6 @@ export const store = configureStore({
   reducer: {
     professionalDetails: professionalDetails,
     personalDetails: personalDetails,
+    // equipmentSlice: equipmentSlice,
   },
 });
